@@ -7,19 +7,50 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-      
+class ViewController: UIViewController {
+    var pokemonList = [PokemonSimple]()
+    
     @IBOutlet weak var pokeTableView: UITableView!
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.navigationController?.navigationBar.topItem?.title = "Will"
+        
+        self.getPokemons()
     }
+    
+    private func getPokemons() {
+        PokemonManager.getPokemonSummary { pokemonSummary in
+            if let pokemons = pokemonSummary?.results {
+                self.pokemonList = pokemons
+                self.pokeTableView.reloadData()
+            }
+        } failure: { error in
+            debugPrint("🕵️‍♂️ -->> \(error.debugDescription)")
+        }
+    }
+    
+    // MARK: - Destination
+    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+        guard let position = sender as? Int,
+              identifier == "pokemonDetailSegue",
+              let destinationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PokemonDetailViewController") as? PokemonDetailViewController else {
+            return
+        }
+        
+        let pokemon = self.pokemonList[position]
+        destinationVC.name = pokemon.name
+        
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+}
 
-    // MARK: - UITableviewDataSource
+// MARK: - UITableviewDataSource
+extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.pokemonList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -27,14 +58,20 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return UITableViewCell()
         }
         
-        cell.pokeName.text = "Section: \(indexPath.section) Row: \(indexPath.row)"
+        let row = indexPath.row
+        let pokemon = self.pokemonList[row]
+        
+        cell.pokeName.text = pokemon.name
         
         return cell
     }
-    
-    // MARK: - UITableViewDelegate
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }
 
+// MARK: - UITableViewDelegate
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.performSegue(withIdentifier: "pokemonDetailSegue", sender: indexPath.row)
+    }
+}

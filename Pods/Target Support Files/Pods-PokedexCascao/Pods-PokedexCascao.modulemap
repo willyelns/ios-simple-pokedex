@@ -1,4 +1,4 @@
-framework module Pods_PokedexCascao {
+module Pods_PokedexCascao {
   umbrella header "Pods-PokedexCascao-umbrella.h"
 
   export *

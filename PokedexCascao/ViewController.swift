@@ -16,15 +16,22 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.topItem?.title = "Will"
-        
         self.getPokemons()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.topItem?.title = "Pokedex"
+    }
+    
+    // MARK: - Retrieve data
     private func getPokemons() {
         PokemonManager.getPokemonSummary { pokemonSummary in
             if let pokemons = pokemonSummary?.results {
                 self.pokemonList = pokemons
+                
+                debugPrint(self.pokemonList)
+                
                 self.pokeTableView.reloadData()
             }
         } failure: { error in
@@ -41,7 +48,9 @@ class ViewController: UIViewController {
         }
         
         let pokemon = self.pokemonList[position]
-        destinationVC.name = pokemon.name
+        destinationVC.pokemonSimple = pokemon
+//        destinationVC.name = pokemon.name
+//        destinationVC.pokemonUrl = pokemon.url
         
         self.navigationController?.pushViewController(destinationVC, animated: true)
     }

@@ -3,6 +3,8 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,21 +22,22 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pokeListCell" rowHeight="75" id="Uoz-am-gNw" customClass="PokeSimpleTableViewCell" customModule="PokedexCascao" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="75"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pokeListCell" rowHeight="120" id="Uoz-am-gNw" customClass="PokeSimpleTableViewCell" customModule="PokedexCascao" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uoz-am-gNw" id="grM-Mj-pGh">
-                                            <rect key="frame" x="0.0" y="0.0" width="384.5" height="75"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXZ-u3-9Sc">
-                                                    <rect key="frame" x="16" y="27" width="352.5" height="21"/>
+                                                    <rect key="frame" x="16" y="49.5" width="382" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="LXZ-u3-9Sc" secondAttribute="bottom" constant="49.5" id="CyG-cc-gMa"/>
                                                 <constraint firstItem="LXZ-u3-9Sc" firstAttribute="centerY" secondItem="grM-Mj-pGh" secondAttribute="centerY" id="KMr-b1-ZhQ"/>
                                                 <constraint firstItem="LXZ-u3-9Sc" firstAttribute="leading" secondItem="grM-Mj-pGh" secondAttribute="leading" constant="16" id="ghF-4h-P5b"/>
                                                 <constraint firstAttribute="trailing" secondItem="LXZ-u3-9Sc" secondAttribute="trailing" constant="16" id="yQ4-fd-9kg"/>
@@ -60,7 +63,10 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XIG-iO-kCa" secondAttribute="bottom" id="rVS-mD-MEr"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" id="tKm-8Z-EiF"/>
+                    <tabBarItem key="tabBarItem" title="List" image="folder" catalog="system" id="tKm-8Z-EiF">
+                        <color key="badgeColor" name="SecondaryColor"/>
+                        <imageReference key="selectedImage" image="folder.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="GRG-7M-EFo"/>
                     <connections>
                         <outlet property="pokeTableView" destination="XIG-iO-kCa" id="Mul-EP-TCR"/>
@@ -74,7 +80,7 @@
         <!--Favorite-->
         <scene sceneID="952-tZ-nX7">
             <objects>
-                <viewController id="Rme-0u-doc" sceneMemberID="viewController">
+                <viewController id="Rme-0u-doc" customClass="PokemonFavoritesViewController" customModule="PokedexCascao" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NFJ-u2-DiV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,11 +100,13 @@
                             <constraint firstItem="K6S-RE-cLu" firstAttribute="centerX" secondItem="YkM-Yw-sfS" secondAttribute="centerX" id="ohS-Py-d9a"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Favorite" id="CK1-1l-GNm"/>
+                    <tabBarItem key="tabBarItem" title="Favorite" image="star" catalog="system" id="CK1-1l-GNm">
+                        <imageReference key="selectedImage" image="star.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8lK-dj-d9p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2116" y="563"/>
+            <point key="canvasLocation" x="2116" y="591"/>
         </scene>
         <!--Pokemon Detail View Controller-->
         <scene sceneID="PM8-9P-Q8A">
@@ -144,7 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e1B-n0-gwe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3050.7246376811595" y="-133.25892857142856"/>
+            <point key="canvasLocation" x="3048" y="-118"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Azw-Zn-MT0">
@@ -171,8 +179,10 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="kEc-va-2Qb"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NOV-qC-CJh">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="PrimaryColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="4BG-mC-hFZ"/>
@@ -188,6 +198,16 @@
         <segue reference="mx7-iy-VLW"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="folder" catalog="system" width="128" height="97"/>
+        <image name="folder.fill" catalog="system" width="128" height="97"/>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <namedColor name="PrimaryColor">
+            <color red="0.80000001192092896" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="SecondaryColor">
+            <color red="0.23100000619888306" green="0.29800000786781311" blue="0.79199999570846558" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
